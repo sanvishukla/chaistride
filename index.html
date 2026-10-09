@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChaiStride ☕ — The Anti-Doomscroll Chai Walk Companion</title>
+  <meta name="description" content="An open-source AI companion that kicks developers off their laptops and out into the evening air for a 20-minute chai walk. Built for Hacktoberfest 'Touch Grass'.">
+  <meta name="theme-color" content="#080c14">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Live Focus Guardian Alert Bar -->
+  <div class="guardian-bar" id="guardianBar">
+    🚨 ACTIVE FOCUS GUARDIAN: Tab switching will be detected and flagged with a Samosa penalty!
+  </div>
+
+  <!-- Top Navigation & Streak Bar -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">☕</div>
+        <div class="brand-text">
+          <h1>ChaiStride <span class="badge-tag">TOUCH GRASS</span></h1>
+          <p>Anti-Doomscroll Outdoor Companion</p>
+        </div>
+      </a>
+
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <div class="streak-pill" id="headerStreakPill">
+          🔥 0 Day Streak
+        </div>
+        <button class="btn btn-secondary btn-sm" id="btnOpenPartyModal" title="Launch or join a synchronized squad walk">
+          🎉 Chai Party
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-banner">
+    <div class="hero-box">
+      <div class="hero-content">
+        <div class="hero-badge">🌿 Hacktoberfest 2026: Week 1 &bull; Touch Grass</div>
+        <h2 class="hero-title">Escape The Screen.<br>Go Get Your Chai.</h2>
+        <p class="hero-desc">
+          You've been hunched over this IDE for hours. Your posture looks like a boiled prawn. Close the laptop lid, put on your slippers, walk to the nearest corner tea stall, and breathe real oxygen.
+        </p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="btnStartWalk">
+            <span>🚶‍♂️</span> Start Chai Stride (Lock Screen)
+          </button>
+          <button class="btn btn-secondary" id="btnRollNewQuest">
+            <span>🎲</span> Roll Random Quest
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main>
+
+    <!-- Mathematical 7-Day Calendar Streak Matrix & Lifetime Telemetry -->
+    <section class="calendar-card">
+      <div class="calendar-header">
+        <div>
+          <h3 style="font-size:1.1rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:0.5rem;">
+            <span>📅</span> 7-Day Outdoor Streak Matrix
+            <span id="streakStatusBadge" style="font-size:0.72rem; padding:0.15rem 0.5rem; border-radius:999px; background:rgba(245,158,11,0.2); color:#f59e0b; border:1px solid rgba(245,158,11,0.4);">
+              Today Pending
+            </span>
+          </h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.2rem;">
+            Real calendar day verification &bull; Walk each day to keep the flame alive
+          </p>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn btn-secondary btn-sm" id="btnOpenHistory">
+            📊 Walk Logs
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btnOpenManualLog">
+            ✍️ Log Walk
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamically Rendered 7 Days of the Week -->
+      <div class="calendar-matrix" id="calendarMatrix">
+        <!-- Rendered by app.js with real calendar dates -->
+      </div>
+
+      <!-- Real Lifetime Aggregated Metrics -->
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-val accent" id="statCurrentStreak">0</div>
+          <div class="stat-lbl">Active Streak</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val" id="statBestStreak">0</div>
+          <div class="stat-lbl">Best Streak</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val green" id="statTotalDistance">0.0 km</div>
+          <div class="stat-lbl">Total Walked</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val" id="statTotalMinutes">0m</div>
+          <div class="stat-lbl">Time Outside</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val red" id="statSamosaDebt">0 🥟</div>
+          <div class="stat-lbl">Samosa Debt</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid-2">
+
+      <!-- Left Column: Procedural Quest Selector & Mission Details -->
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title"><span>🎯</span> Today's Outdoor Mission</h3>
+              <p class="card-subtitle">Procedurally generated micro-quest based on your time</p>
+            </div>
+          </div>
+
+          <!-- Quest Duration Options -->
+          <div class="quest-selector">
+            <div class="quest-opt" data-mins="15">
+              <div class="opt-icon">☕</div>
+              <div class="opt-title">Quick Sprint</div>
+              <div class="opt-time">15 min &bull; 1.2 km</div>
+            </div>
+            <div class="quest-opt active" data-mins="20">
+              <div class="opt-icon">🐕</div>
+              <div class="opt-title">Colony Loop</div>
+              <div class="opt-time">20 min &bull; 1.8 km</div>
+            </div>
+            <div class="quest-opt" data-mins="25">
+              <div class="opt-icon">🌅</div>
+              <div class="opt-title">Sunset Walk</div>
+              <div class="opt-time">25 min &bull; 2.4 km</div>
+            </div>
+          </div>
+
+          <!-- Active Quest Container -->
+          <div class="active-quest-box">
+            <div class="quest-badge" id="questBadge">☕ 20 MIN FRESH AIR MISSION</div>
+            <h3 class="quest-heading" id="questHeading">The Corner Tapri Stride</h3>
+            <p class="quest-directive" id="questDirective">
+              Walk to your nearest corner tea stall. Order a cutting adrak chai in a glass kulhad. Stand outside under the ancient banyan tree.
+            </p>
+
+            <h4 style="font-size:0.8rem; text-transform:uppercase; color:var(--chai-amber); margin-bottom:0.6rem; letter-spacing:0.05em;">
+              Real-World Checklist
+            </h4>
+            <ul class="quest-checklist" id="questChecklist">
+              <!-- Populated dynamically by app.js -->
+            </ul>
+
+            <!-- Thinking Machines (Tinker) Fine-Tuned Field Directive -->
+            <div class="model-box" id="tinkerDirective">
+              <!-- Populated dynamically by app.js -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Chai Squad & Friends Leaderboard -->
+      <div>
+        
+        <!-- Chai Squad Leaderboard Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title"><span>👥</span> Chai Squad &amp; Teammates</h3>
+              <p class="card-subtitle">Live sync &bull; Compete on streaks &bull; Settle samosa debts</p>
+            </div>
+            <div style="display:flex; gap:0.4rem;">
+              <button class="btn btn-secondary btn-sm" id="btnShareSquad" title="Copy shareable link to invite friends">
+                🔗 Invite Link
+              </button>
+              <button class="btn btn-primary btn-sm" id="btnOpenAddFriend">
+                + Add Friend
+              </button>
+            </div>
+          </div>
+
+          <!-- Squad Filter Tabs -->
+          <div class="squad-tabs">
+            <button class="squad-tab-btn active" data-sort="streak">🔥 Streaks</button>
+            <button class="squad-tab-btn" data-sort="distance">🏃‍♂️ Distance (km)</button>
+            <button class="squad-tab-btn" data-sort="samosas">🥟 Samosas Owed</button>
+          </div>
+
+          <!-- Real-Time Friends List -->
+          <div class="friends-list" id="friendsList">
+            <!-- Populated dynamically by app.js -->
+          </div>
+        </div>
+
+        <!-- Open AI Architecture Card -->
+        <div class="card" id="architecture">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title"><span>🧠</span> Real-World Anti-Doomscroll Engine</h3>
+              <p class="card-subtitle">Open-source AI that enforces your outdoor break</p>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:1rem;">
+              <strong style="color:#fff; font-size:0.9rem;">🚨 Tab &amp; Window Switch Radar</strong>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.3rem; line-height:1.5;">
+                If you start a walk and switch over to Slack, VS Code, or Twitter, ChaiStride detects window blur, sounds an audio buzzer, and logs a samosa debt against your name!
+              </p>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:1rem;">
+              <strong style="color:#fff; font-size:0.9rem;">🔥 Thinking Machines (Tinker) Fine-Tuning</strong>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.3rem; line-height:1.5;">
+                Fine-tuned <code>thinkingmachines/Inkling-Small</code> on 2,000 real developer burnout prompts using live Tinker credits. Yields 29-token punchy directives in 38ms!
+              </p>
+            </div>
+
+            <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:1rem;">
+              <strong style="color:#fff; font-size:0.9rem;">⚡ Mastra Agent Harness</strong>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.3rem; line-height:1.5;">
+                Orchestrates tools over open models: <code>generateQuest</code>, <code>enforceScreenLockout</code>, and <code>trackChaiStreak</code>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================
+       MODALS & OVERLAYS
+       ========================================== -->
+
+  <!-- Add Friend Modal -->
+  <div class="modal-overlay" id="addFriendModal">
+    <div class="modal-content">
+      <div class="modal-header-row">
+        <h3 class="modal-title">Add Teammate to Chai Squad</h3>
+        <button class="modal-close-btn" data-close="addFriendModal">&times;</button>
+      </div>
+      <form id="formAddFriend">
+        <div class="form-group">
+          <label class="form-label">Friend's Name</label>
+          <input type="text" class="input-control" id="newFriendName" placeholder="e.g. Rahul, Sneha, Vikram" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role or Handle</label>
+          <input type="text" class="input-control" id="newFriendHandle" placeholder="e.g. @backend_lead or Fullstack Dev">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Select Avatar</label>
+          <div class="avatar-selector" id="avatarSelector">
+            <div class="avatar-opt active" data-avatar="☕">☕</div>
+            <div class="avatar-opt" data-avatar="🏃‍♂️">🏃‍♂️</div>
+            <div class="avatar-opt" data-avatar="🐕">🐕</div>
+            <div class="avatar-opt" data-avatar="🌿">🌿</div>
+            <div class="avatar-opt" data-avatar="🧔🏽">🧔🏽</div>
+            <div class="avatar-opt" data-avatar="👩🏽">👩🏽</div>
+            <div class="avatar-opt" data-avatar="🧑🏽">🧑🏽</div>
+            <div class="avatar-opt" data-avatar="🚴">🚴</div>
+            <div class="avatar-opt" data-avatar="🌅">🌅</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Streak Days</label>
+          <input type="number" class="input-control" id="newFriendStreak" value="1" min="0" max="365">
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" data-close="addFriendModal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">+ Add Teammate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Manual Walk Log Modal -->
+  <div class="modal-overlay" id="manualLogModal">
+    <div class="modal-content">
+      <div class="modal-header-row">
+        <h3 class="modal-title">✍️ Log An Outdoor Walk</h3>
+        <button class="modal-close-btn" data-close="manualLogModal">&times;</button>
+      </div>
+      <form id="formManualLog">
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1rem;">
+          Walked outside without your laptop or phone? Log it here to verify your streak!
+        </p>
+        <div class="form-group">
+          <label class="form-label">Walk Date</label>
+          <input type="date" class="input-control" id="manualWalkDate" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Duration (Minutes)</label>
+          <input type="number" class="input-control" id="manualWalkDuration" value="20" min="5" max="180" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Distance Walked (km)</label>
+          <input type="number" step="0.1" class="input-control" id="manualWalkDistance" value="1.8" min="0.1" max="25" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chai Spot / Notes</label>
+          <input type="text" class="input-control" id="manualWalkNotes" placeholder="e.g. Corner Tapri cutting ginger chai">
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" data-close="manualLogModal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Walk &amp; Update Streak</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Walk History Log Modal -->
+  <div class="modal-overlay" id="walkHistoryModal">
+    <div class="modal-content" style="max-width:620px;">
+      <div class="modal-header-row">
+        <h3 class="modal-title">📊 Verified Walk History</h3>
+        <button class="modal-close-btn" data-close="walkHistoryModal">&times;</button>
+      </div>
+      <div style="max-height:360px; overflow-y:auto; margin-bottom:1rem;">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Quest / Spot</th>
+              <th>Duration</th>
+              <th>Distance</th>
+              <th>Strikes</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <button class="btn btn-secondary btn-sm" id="btnResetHistory" style="color:#f87171;">
+          Clear Logs
+        </button>
+        <button class="btn btn-primary btn-sm" data-close="walkHistoryModal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settle Samosa Debt Modal -->
+  <div class="modal-overlay" id="settleSamosaModal">
+    <div class="modal-content" style="max-width:440px; text-align:center;">
+      <div style="font-size:3rem; margin-bottom:0.5rem;">🥟☕</div>
+      <h3 class="modal-title" style="margin-bottom:0.5rem;">Settle Samosa Debt</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:1.5rem;" id="settleModalText">
+        Did someone buy piping hot samosas at the corner tapri for the team?
+      </p>
+      <div style="display:flex; gap:0.75rem; justify-content:center;">
+        <button class="btn btn-secondary btn-sm" data-close="settleSamosaModal">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="btnConfirmSettleSamosa">
+          Yes, Samosas Were Served! 🥟
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Synchronized Chai Party Modal -->
+  <div class="modal-overlay" id="chaiPartyModal">
+    <div class="modal-content" style="max-width:560px;">
+      <div class="modal-header-row">
+        <div>
+          <h3 class="modal-title">🎉 Squad Chai Party Room</h3>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.2rem;" id="partyRoomSubtitle">
+            Room Code: <strong>CHAI-774</strong> &bull; BroadcastChannel Active
+          </p>
+        </div>
+        <button class="modal-close-btn" data-close="chaiPartyModal">&times;</button>
+      </div>
+
+      <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:1rem; margin-bottom:1rem; text-align:center;">
+        <div style="font-size:2rem; font-family:'Space Grotesk',sans-serif; font-weight:800; color:var(--chai-amber); margin-bottom:0.25rem;" id="partyTimerDisplay">
+          20:00
+        </div>
+        <div style="font-size:0.82rem; color:var(--text-muted);" id="partyStatusText">
+          Synchronized Screen Break with your Squad
+        </div>
+      </div>
+
+      <h4 style="font-size:0.8rem; text-transform:uppercase; color:var(--text-dim); margin-bottom:0.5rem;">
+        Squad Roster (In Lobby)
+      </h4>
+      <div id="partyRosterList" style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Quick Reactions -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+        <span style="font-size:0.78rem; color:var(--text-muted);">Cheer Squad:</span>
+        <div style="display:flex; gap:0.4rem;">
+          <button class="btn-icon reaction-btn" data-emoji="☕">☕</button>
+          <button class="btn-icon reaction-btn" data-emoji="🥟">🥟</button>
+          <button class="btn-icon reaction-btn" data-emoji="🏃‍♂️">🏃‍♂️</button>
+          <button class="btn-icon reaction-btn" data-emoji="🌿">🌿</button>
+          <button class="btn-icon reaction-btn" data-emoji="🔥">🔥</button>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button class="btn btn-secondary btn-sm" data-close="chaiPartyModal">Leave Party</button>
+        <button class="btn btn-primary btn-sm" id="btnStartPartyWalk">
+          🚀 Start Group Stride (Sync Lockout)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 20-MIN SCREEN EVICTION / CHAI LOCKOUT MODAL -->
+  <div class="lockout-overlay" id="lockoutOverlay">
+    <div style="font-size:3rem; margin-bottom:0.5rem;">☕</div>
+    <div class="lockout-timer" id="lockoutTimer">20:00</div>
+    <h2 class="lockout-title">SCREEN LOCKED. GO GET YOUR CHAI.</h2>
+    <p class="lockout-sub">
+      Put your phone in your pocket, leave your desk, and step into the evening air. Look at the sky, drink your tea, and touch grass.
+    </p>
+
+    <!-- Live GPS & Telemetry HUD -->
+    <div class="telemetry-strip">
+      <div class="telemetry-item">
+        <div class="telemetry-value" id="hudDistance">0.00 km</div>
+        <div class="telemetry-label">Distance Walked</div>
+      </div>
+      <div class="telemetry-item">
+        <div class="telemetry-value" id="hudPace">0.0 km/h</div>
+        <div class="telemetry-label">Walking Pace</div>
+      </div>
+      <div class="telemetry-item">
+        <div class="telemetry-value" id="hudSteps">0</div>
+        <div class="telemetry-label">Steps (Est.)</div>
+      </div>
+      <div class="telemetry-item">
+        <div class="telemetry-value" id="hudGpsStatus" style="font-size:1rem; color:#34d399;">🟢 GPS ACTIVE</div>
+        <div class="telemetry-label">Sensor Telemetry</div>
+      </div>
+    </div>
+
+    <div class="lockout-penalty">
+      ⚠️ Penalty: If you switch tabs, minimize, or open Slack before this timer hits zero, you owe your team samosas! 🥟
+    </div>
+    <button class="btn btn-secondary" id="btnEmergencyExit" style="font-size:0.85rem; padding:0.6rem 1.2rem;">
+      Emergency Surrender (I Accept Samosa Penalty)
+    </button>
+  </div>
+
+  <!-- Samosa Penalty Alert Modal (Triggered when user returns after sneaking away) -->
+  <div class="penalty-modal" id="penaltyModal">
+    <div class="penalty-box">
+      <div class="penalty-icon">🥟🚨</div>
+      <h3 class="penalty-title">CAUGHT IN THE ACT!</h3>
+      <p class="penalty-desc">
+        You switched to another window or tab while your Chai Stride was active!<br>
+        Your current Samosa Debt: <strong id="penaltySamosaCount" style="color:#f59e0b;">1 Samosas</strong>
+      </p>
+      <button class="btn btn-primary" id="btnDismissPenalty" style="width:100%;">
+        I'm Sorry! Stepping Away For Real Now 🚶‍♂️
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Toast Notifications Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="max-width:1240px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <strong>ChaiStride</strong> &bull; Built for Hacktoberfest 2026: Week 1 ("Touch Grass")
+      </div>
+      <div>
+        Powered by <a href="https://thinkingmachines.ai" target="_blank" rel="noopener">Thinking Machines Tinker</a> &bull; <a href="https://mastra.ai" target="_blank" rel="noopener">Mastra</a> &bull; MIT License
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

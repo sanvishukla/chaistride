@@ -1,0 +1,30 @@
+{
+  "name": "chaistride",
+  "version": "1.0.0",
+  "description": "The Anti-Doomscroll Chai Walk Companion built for Hacktoberfest 2026: Touch Grass",
+  "main": "mastra/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "mastra": "tsx mastra/index.ts",
+    "tinker:train": "python3 tinker_training/train_tinker.py"
+  },
+  "dependencies": {
+    "@mastra/core": "^0.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "keywords": [
+    "hacktoberfest",
+    "hf26challenge",
+    "touch-grass",
+    "mastra",
+    "tinker",
+    "developer-burnout"
+  ],
+  "author": "Sanvi Shukla",
+  "license": "MIT"
+}
